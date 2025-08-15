@@ -2,7 +2,9 @@ import React from 'react'
 
 const Breadcrum = () => {
   return (
-    <div>Breadcrum</div>
+    <div>
+        
+    </div>
   )
 }
 
