@@ -39,8 +39,22 @@ const ProductDisplay = (props) => {
           </div>
 
           <div className="productdisplay-right-description">
-            
+            We are regarded as an established manufacturer and exporter of Women's Casual Blouse . The product we offer are hand-tailored with fine,...
           </div>
+
+          <div className="productdisplay-right-size">
+            <h1>Select Size</h1>
+            <div className="productdisplay-right-size">
+              <div>S</div>
+              <div>M</div>
+              <div>L</div>
+              <div>XL</div>
+              <div>XXL</div>
+            </div>
+          </div>
+          <button>ADD TO CART</button>
+          <p className='productdisplay-right-category'><span>Category :</span>Women, T-shirt, Crop Top</p>
+          <p className='productdisplay-right-category'><span>Tags :</span>Modern, Latest</p>
             
         </div>
 
