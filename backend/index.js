@@ -13,7 +13,7 @@ app.use(cors());
 
 //Database connection with MongoDB
 
-mongoose.connect("mongodb+srv://msscooray:mss1234@cluster0.dk9swov.mongodb.net/e-commerce");
+mongoose.connect("mongodb+srv://msscooray:mss1234@cluster0.dk9swov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
 //API Creation
 
@@ -85,8 +85,19 @@ const product = mongoose.model("Product",{
 })
 
 app.post('/addproduct',async(req,res)=>{
-    const product = new product({
-        id: req.body.id,
+    let products = await Product.find({});
+    let id;
+    if (products.length > 0) {
+        let last_product_array = products.slice(-1);
+        let last_product = last_product_array[0];
+        id = last_product.id + 1;
+    }
+
+    else{
+        id = 1;
+    }
+    const product = new Product({
+        id: id,
         name: req.body.name,
         image: req.body.image,
         category: req.body.category,
@@ -97,7 +108,28 @@ app.post('/addproduct',async(req,res)=>{
     console.log(product);
     await product.save();
     console.log("Saved");
+    res.json({
+        success:true,
+        name: req.body.name,
+    })
 
+})
+
+//Creating ApI For deleting Products
+app.post('/removeproduct',async(req,res)=>{
+    await Product.findOneAndDelete({id:req.body.id});
+    console.log("Removed");
+    res.json({
+        success:true,
+        name:req.body.name,
+    })
+})
+
+//Creating API for getting All products
+app.get('/allproducts',async(req,res)=>{
+    let products = await Product.find({});
+    console.log("All Product Fetched");
+    res.send(products);
 })
 
 app.listen(port,(error)=>{
