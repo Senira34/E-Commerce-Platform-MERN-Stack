@@ -13,7 +13,7 @@ app.use(cors());
 
 //Database connection with MongoDB
 
-mongoose.connect("mongodb+srv://msscooray:mss1234@cluster0.dk9swov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb+srv://msscooray:mss1234@cluster0.dk9swov.mongodb.net/");
 
 //API Creation
 
