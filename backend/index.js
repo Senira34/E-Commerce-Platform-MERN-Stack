@@ -13,9 +13,16 @@ app.use(cors());
 
 //Database connection with MongoDB
 
-mongoose.connect("mongodb+srv://msscooray:mss1234@cluster0.dk9swov.mongodb.net/");
+mongoose.connect("mongodb+srv://mnpcooray:mnp1234@cluster0.nxyoqjl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .then(() => {
+    console.log("Successfully connected to MongoDB.");
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB:", error);
+  });
 
 //API Creation
+
 
 app.get("/",(req,res)=>{
     res.send("Express App is Running")
@@ -24,7 +31,7 @@ app.get("/",(req,res)=>{
 
 // Image Storage Engine
 
-const storage =multer.diskStorage({
+const storage = multer.diskStorage({
     destination: './upload/images',
     filename:(req,file,cb)=>{
         return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
@@ -85,7 +92,7 @@ const product = mongoose.model("Product",{
 })
 
 app.post('/addproduct',async(req,res)=>{
-    let products = await Product.find({});
+    let products = await product.find({});
     let id;
     if (products.length > 0) {
         let last_product_array = products.slice(-1);
@@ -96,7 +103,7 @@ app.post('/addproduct',async(req,res)=>{
     else{
         id = 1;
     }
-    const product = new Product({
+    const newProduct = new product({
         id: id,
         name: req.body.name,
         image: req.body.image,
